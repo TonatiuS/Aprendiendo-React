@@ -4,18 +4,18 @@ import TodoList from './List'
 function App() {
     const [todos,setTodos] =useState([])
     const todosNameRefer= useRef();
-    const LOCAL_STORAGE= 'todoApp.todos'
+    const LOCAL_STORAGE= 'todoApp.todos' //guarda todos en la memoria
     let todosComplete = todos.filter(todo => !todo.complete)
 
     useEffect(() =>{
         const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE))
         if(setTodos) setTodos(storedTodos)
         console.log(storedTodos)
-    },[])
+    },[]) //arreglo vacio 
 
     useEffect(()=>{
         localStorage.setItem(LOCAL_STORAGE,JSON.stringify(todos))
-    },[todos])
+    },[todos]) //regreso todos a la lista 
 
     function handleAddTodo(e) {
         const name = todosNameRefer.current.value
@@ -24,7 +24,7 @@ function App() {
         setTodos(prevTodos =>{
             
             return [...prevTodos,{id:(prevTodos.length +1 ),name: name, complete: false}]
-        })
+        }) 
     }
 
     function toogleTodos(id) {
@@ -43,6 +43,7 @@ function App() {
 
     return(
         <>
+            
             <TodoList TodoList={todos}  toogleTodos={toogleTodos} />
             <br></br>
             <br></br>
